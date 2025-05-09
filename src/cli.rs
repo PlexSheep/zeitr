@@ -1,12 +1,30 @@
 use chrono::{NaiveTime, TimeDelta, Timelike};
 use std::process::ExitCode;
 
-use clap::Parser;
+use clap::{Parser, Subcommand};
+
+use crate::calc::{CalcInput, calc_cli};
 
 /// Calculate a time span from start time, end time, and pause duration
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Cli {
+    /// Open a GUI window for interactive time calculation
+    #[arg(short, long)]
+    gui: bool,
+
+    #[command(subcommand)]
+    command: CliCommand,
+}
+
+#[derive(Subcommand, Debug)]
+enum CliCommand {
+    Span(SpanCli),
+    Calc(CalcInput),
+}
+
+#[derive(Parser, Debug)]
+pub struct SpanCli {
     /// When the time span started
     start: NaiveTime,
     /// When the time span ended
@@ -14,9 +32,6 @@ struct Cli {
     /// Sum of pauses made in the time span
     #[arg(short, long,value_parser = time_delta_parser)]
     pause: Option<TimeDelta>,
-    /// Open a GUI window for interactive time calculation
-    #[arg(short, long)]
-    gui: bool,
 }
 
 pub fn cli(args: &[String]) -> ExitCode {
@@ -25,6 +40,13 @@ pub fn cli(args: &[String]) -> ExitCode {
         unreachable!("Somehow reached the cli function when the gui was requested")
     }
 
+    match cli.command {
+        CliCommand::Span(cs) => span(&cs),
+        CliCommand::Calc(cs) => calc_cli(&cs),
+    }
+}
+
+pub fn span(cli: &SpanCli) -> ExitCode {
     // HACK: this should be a TimeDelta
     let pause = cli.pause.unwrap_or(TimeDelta::zero());
 

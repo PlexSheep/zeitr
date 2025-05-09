@@ -1,5 +1,6 @@
 use std::process::ExitCode;
 
+mod calc;
 mod cli;
 #[cfg(feature = "gui")]
 mod gui;
