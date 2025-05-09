@@ -3,17 +3,27 @@ use std::process::ExitCode;
 
 use clap::Parser;
 
+/// Calculate a time span from start time, end time, and pause duration
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Cli {
+    /// When the time span started
     start: NaiveTime,
+    /// When the time span ended
     end: NaiveTime,
+    /// Sum of pauses made in the time span
     #[arg(short, long,value_parser = time_delta_parser)]
     pause: Option<TimeDelta>,
+    /// Open a GUI window for interactive time calculation
+    #[arg(short, long)]
+    gui: bool,
 }
 
 pub fn cli(args: &[String]) -> ExitCode {
     let cli = Cli::parse_from(args);
+    if cli.gui {
+        unreachable!("Somehow reached the cli function when the gui was requested")
+    }
 
     // HACK: this should be a TimeDelta
     let pause = cli.pause.unwrap_or(TimeDelta::zero());

@@ -25,8 +25,8 @@ fn gui_requested(args: &[String]) -> bool {
             if arg == "--gui" {
                 return true;
             }
-            if arg.chars().nth(0) == Some('-') && arg.chars().nth(1) != Some('-') {
-                return arg.contains('g');
+            if arg.starts_with("-") && arg.chars().nth(1) != Some('-') && arg.contains('g') {
+                return true;
             }
         }
     }
