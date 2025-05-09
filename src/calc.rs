@@ -2,16 +2,37 @@ use std::process::ExitCode;
 
 use clap::Parser;
 use exmex::{
-    self, ExResult, Express, FlatEx, MakeOperators, MatchLiteral, Operator,
+    self, BinOp, ExResult, Express, FlatEx, MakeOperators, MatchLiteral, Operator,
     literal_matcher_from_pattern, ops_factory,
 };
+
+use crate::util::naive_time_to_delta;
 
 #[derive(Parser, Debug)]
 pub struct CalcInput {
     tokens: Vec<String>, // TODO: add limit, at least one
 }
 
-ops_factory!(TimeFactory, chrono::NaiveTime,);
+ops_factory!(
+    TimeFactory,
+    chrono::NaiveTime,
+    Operator::make_bin(
+        "+",
+        BinOp {
+            apply: |a, b| a + naive_time_to_delta(b),
+            prio: 1,
+            is_commutative: true,
+        }
+    ),
+    Operator::make_bin(
+        "-",
+        BinOp {
+            apply: |a, b| a - naive_time_to_delta(b),
+            prio: 1,
+            is_commutative: true,
+        }
+    )
+);
 literal_matcher_from_pattern!(TimeMatcher, r"^\d(\d)?:\d(\d)?(:\d(\d)?)?");
 
 pub type FlatExTime = FlatEx<chrono::NaiveTime, TimeFactory, TimeMatcher>;

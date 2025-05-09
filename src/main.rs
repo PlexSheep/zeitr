@@ -5,6 +5,7 @@ mod calc;
 mod cli;
 #[cfg(feature = "gui")]
 mod gui;
+mod util;
 
 fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().collect();

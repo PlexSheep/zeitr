@@ -4,6 +4,7 @@ use std::process::ExitCode;
 use clap::{Parser, Subcommand};
 
 use crate::calc::{CalcInput, calc_cli};
+use crate::util::{format_delta, time_delta_parser};
 
 /// Calculate a time span from start time, end time, and pause duration
 #[derive(Parser, Debug)]
@@ -60,13 +61,4 @@ pub fn span(cli: &SpanCli) -> ExitCode {
     println!("Span:     {:016}", format_delta(&span));
 
     ExitCode::SUCCESS
-}
-
-fn format_delta(delta: &TimeDelta) -> String {
-    format!("{}", NaiveTime::default() + *delta)
-}
-
-fn time_delta_parser(s: &str) -> Result<TimeDelta, String> {
-    let time: NaiveTime = s.parse().map_err(|_| format!("`{s}` isn't a duration"))?;
-    Ok(TimeDelta::new(time.num_seconds_from_midnight() as i64, 0).unwrap())
 }
