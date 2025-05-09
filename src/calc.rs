@@ -10,7 +10,23 @@ use crate::util::naive_time_to_delta;
 
 #[derive(Parser, Debug)]
 pub struct CalcInput {
-    tokens: Vec<String>, // TODO: add limit, at least one
+    /// Time expression to evaluate
+    ///
+    /// A mathematical expression involving time values.
+    ///
+    /// Supports addition and subtraction with time values.
+    ///
+    /// Format times as HH:MM or HH:MM:SS.
+    ///
+    /// Examples:
+    ///
+    ///   "13:45 + 02:30" → Adds 2h30m to 13:45
+    ///
+    ///   "17:00 - 01:15" → Subtracts 1h15m from 17:00
+    ///
+    ///   "09:30 + 01:45" → Adds 1h45m to 09:30
+    #[arg(required = true, value_name= "EXPRESSION",num_args = 1..256)]
+    tokens: Vec<String>,
 }
 
 ops_factory!(
