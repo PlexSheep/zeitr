@@ -20,6 +20,7 @@ struct Cli {
 #[derive(Subcommand, Debug)]
 enum CliCommand {
     Span(SpanCli),
+    #[cfg(feature = "calc")]
     Calc(CalcInput),
 }
 
@@ -42,6 +43,7 @@ pub fn cli(args: &[String]) -> ExitCode {
 
     match cli.command {
         CliCommand::Span(cs) => span(&cs),
+        #[cfg(feature = "calc")]
         CliCommand::Calc(cs) => calc_cli(&cs),
     }
 }
