@@ -1,4 +1,4 @@
-use chrono::{NaiveTime, TimeDelta, Timelike};
+use chrono::{NaiveTime, TimeDelta};
 use std::process::ExitCode;
 
 use clap::{Parser, Subcommand};
