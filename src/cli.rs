@@ -8,7 +8,7 @@ use clap::Parser;
 struct Cli {
     start: NaiveTime,
     end: NaiveTime,
-    #[arg(value_parser = time_delta_parser)]
+    #[arg(short, long,value_parser = time_delta_parser)]
     pause: Option<TimeDelta>,
 }
 
@@ -21,7 +21,7 @@ pub fn cli(args: &[String]) -> ExitCode {
     println!("Start:    {:016}", cli.start);
     println!("End:      {:016}", cli.end);
     println!("Pause:    {:016}", format_delta(&pause));
-    let span = cli.end - cli.start;
+    let span = cli.end - cli.start - pause;
     println!("{:=<80}", "");
     println!("Span:     {:016}", format_delta(&span));
 
