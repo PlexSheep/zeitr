@@ -20,8 +20,10 @@ struct Cli {
 
 #[derive(Subcommand, Debug)]
 enum CliCommand {
+    #[clap(alias = "s")]
     Span(SpanCli),
     #[cfg(feature = "calc")]
+    #[clap(alias = "c")]
     Calc(CalcInput),
 }
 
