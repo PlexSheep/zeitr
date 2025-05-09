@@ -13,12 +13,8 @@ repository = "https://github.com/PlexSheep/zeitr"
 [dependencies]
 chrono = "0.4.41"
 clap = { version = "4.5.37", features = ["derive"] }
-eframe = { version = "0.31.1", optional = true }
-egui = { version = "0.31.1", optional = true }
-egui_extras = { version = "0.31.1", optional = true }
 exmex = { version = "0.20.4", optional = true, features = ["serde", "value"] }
 
 [features]
 default = ["calc"]
-gui = ["dep:egui_extras","dep:egui","dep:eframe"]
 calc = ["dep:exmex"]

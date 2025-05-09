@@ -10,10 +10,6 @@ use crate::util::{format_delta, time_delta_parser};
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Cli {
-    /// Open a GUI window for interactive time calculation
-    #[arg(short, long)]
-    gui: bool,
-
     #[command(subcommand)]
     command: CliCommand,
 }
@@ -40,9 +36,6 @@ pub struct SpanCli {
 
 pub fn cli(args: &[String]) -> ExitCode {
     let cli = Cli::parse_from(args);
-    if cli.gui {
-        unreachable!("Somehow reached the cli function when the gui was requested")
-    }
 
     match cli.command {
         CliCommand::Span(cs) => span(&cs),
