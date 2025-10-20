@@ -14,7 +14,7 @@ categories = ["command-line-utilities", "date-and-time"]
 [dependencies]
 chrono = "0.4.41"
 clap = { version = "4.5.37", features = ["derive"] }
-exmex = { version = "0.20.4", optional = true, features = ["serde", "value"] }
+exmex = { version = "0.20.5", optional = true, features = ["serde", "value"] }
 
 [features]
 default = ["calc"]
