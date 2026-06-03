@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [0.1.2](https://github.com/PlexSheep/zeitr/compare/v0.1.1...v0.1.2)
+
+### 📚 Documentation
+
+- Document util.rs - ([f76900d](https://github.com/PlexSheep/zeitr/commit/f76900dea8d2fffb3092723189c5273cf03bcf36))
+- Create LICENSE - ([bafaca9](https://github.com/PlexSheep/zeitr/commit/bafaca934397698b359fe499b4026f3229bcab0f))
+
+
 ## [0.1.0]
 
 ### ⛰️ Features
